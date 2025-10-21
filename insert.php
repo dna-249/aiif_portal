@@ -1,7 +1,6 @@
 <?php
 // Set the content type to UTF-8 to handle all characters correctly
 header('Content-Type: text/html; charset=utf-8');
-
 // Use the correct path for the service file
 // NOTE: This file assumes mysql_service.php exists in the same directory for database connection.
 // require_once __DIR__ . '/mysql_service.php'; 
@@ -412,7 +411,7 @@ function render_report($data) {
         ?>
             <div class="flex justify-center no-print mt-6">
                 <button onclick="window.print()" class="flex items-center space-x-2 py-2 px-6 sm:py-3 sm:px-8 border border-transparent shadow-lg text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
-                    <script>document.write(lucide.createIcons('download').download.toSvg());</script>
+                    <script>document.write(lucide.createIcons(\'download\').download.toSvg());</script>
                     <span>Download PDF</span>
                 </button>
             </div>
