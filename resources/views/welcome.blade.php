@@ -83,12 +83,20 @@ $final_results = calculateResults($results);
 $display_results = $final_results['processed_results']; // Separate array for HTML iteration
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Result Report - <?php echo htmlspecialchars($student_data['name']); ?></title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+
+        <!-- Styles / Scripts -->
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         /* Custom font import and styling for report look */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');

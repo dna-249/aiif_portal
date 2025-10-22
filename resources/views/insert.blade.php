@@ -264,12 +264,20 @@ function render_report($data) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secondary School Result Data Entry</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+
+        <!-- Styles / Scripts -->
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body {
@@ -411,7 +419,6 @@ function render_report($data) {
         ?>
             <div class="flex justify-center no-print mt-6">
                 <button onclick="window.print()" class="flex items-center space-x-2 py-2 px-6 sm:py-3 sm:px-8 border border-transparent shadow-lg text-sm font-medium rounded-full text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
-                    <script>document.write(lucide.createIcons(\'download\').download.toSvg());</script>
                     <span>Download PDF</span>
                 </button>
             </div>
