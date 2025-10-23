@@ -1,0 +1,17 @@
+# Use PHP 8.3 with Apache
+FROM php:8.3-apache
+
+# Install necessary PHP extensions for Laravel
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Copy project files into the container
+COPY . /var/www/html
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Fix permissions for Laravel storage and cache
+RUN chown -R www-data:www-data storage bootstrap/cache
+
+# Expose Apache port
+EXPOSE 80
