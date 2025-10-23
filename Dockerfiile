@@ -1,32 +1,33 @@
-# Use PHP 8.3 with Apache
-FROM php:8.3-apache
+# Use official PHP 8.3 image with necessary extensions
+FROM php:8.3-fpm
 
-# Install PHP extensions needed by Laravel
-RUN docker-php-ext-install pdo pdo_mysql bcmath
+# Install system dependencies and PHP extensions needed by Laravel
+RUN apt-get update && apt-get install -y \
+    libonig-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    && docker-php-ext-install pdo pdo_mysql zip mbstring
 
-# Enable Apache rewrite module for Laravel routing
-RUN a2enmod rewrite
-
-# Copy app files into the container
-COPY . /var/www/html
+# Install Composer globally
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Fix permissions for Laravel cache and storage
+# Copy application files
+COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Set permissions for storage and cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Configure Apache to serve from /public and enable .htaccess overrides
-RUN echo '<VirtualHost *:80>\n\
-    DocumentRoot /var/www/html/public\n\
-    <Directory /var/www/html/public>\n\
-        AllowOverride All\n\
-        Require all granted\n\
-    </Directory>\n\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+# Expose port 9000 for php-fpm
+EXPOSE 9000
 
-# Expose port 80
-EXPOSE 80
-
-# Start Apache
-CMD ["apache2-foreground"]
+# Start PHP-FPM server
+CMD ["php-fpm"]
