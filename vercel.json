@@ -1,16 +1,13 @@
 {
-    "builds":[{
-        "src":"package.json",
-        "use":"@vercel/static-build",
-        "config":{"distDir":"dist"}
-    }],
-    "routes":[
-        {
-            "handle":"filesystem"
-        },
-        {
-            "src":"/(.*)",
-            "dest":"/index.html"
-        }
-    ]
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.php"
+    }
+  ]
 }
